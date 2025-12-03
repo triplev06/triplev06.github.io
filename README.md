@@ -1,344 +1,155 @@
-# Vikranth Vegesina - Personal Portfolio Website
+# My Portfolio Website
 
-A breathtaking, modern personal portfolio website featuring advanced animations, particle effects, and 3D-like interactions built with vanilla HTML, CSS, and JavaScript.
+Hey! This is my personal portfolio site. I built it to show off my projects and hackathon wins.
 
-## Features
+## What's Cool About It
 
-### Visual Effects & Animations
+### The Fun Stuff
 
-#### Particle System
-- **Interactive Particle Canvas**: 80+ particles that respond to mouse movement
-- **Dynamic Connections**: Particles connect with lines when close to each other
-- **Mouse Interaction**: Particles are repelled by cursor proximity
-- **Performance Optimized**: Smooth 60fps animations with requestAnimationFrame
+**Particle Animation**
+- 80 particles floating around that react when you move your mouse
+- They connect to each other when they get close
+- Runs at 60fps without lagging
 
-#### Animated Gradient Background
-- **Color Morphing**: Seamless transitions between primary, secondary, and accent colors
-- **Radial Gradients**: Multiple gradient layers for depth
-- **Smooth Lerp Animation**: Linear interpolation for buttery-smooth color transitions
+**Background Colors**
+- The background slowly shifts between blue, purple, and orange
+- Uses canvas animations for smooth transitions
 
-#### 3D Tilt Effects
-- **Perspective Transforms**: Cards tilt in 3D space based on mouse position
-- **Real-time Calculation**: Dynamic rotation on both X and Y axes
-- **Smooth Animations**: CSS3 perspective with hardware acceleration
-- **Applied To**: Project cards, achievement cards, and stat cards
+**3D Card Effects**
+- Hover over project cards and they tilt toward your mouse
+- Looks kinda like those holographic trading cards
+- Works on the project cards, achievements, and stats
 
-#### Cursor Trail
-- **Custom Cursor**: 20-dot trailing cursor effect
-- **Responsive Following**: Each dot follows the previous with damping
-- **Fade Effect**: Opacity decreases along the trail
-- **Desktop Only**: Automatically disabled on mobile devices
+**Custom Cursor**
+- Trail of dots follows your mouse (desktop only)
+- Each dot follows the one before it
+- Disabled on mobile because it's annoying on touchscreens
 
-#### Advanced Hover Effects
-- **Glow Effects**: Multi-layered box shadows with color-specific glows
-- **Scale Transforms**: Subtle scaling on hover for depth
-- **Radial Overlays**: Animated radial gradients that expand on hover
-- **Border Animations**: Smooth border color transitions
+**Typing Animation**
+- My subtitle rotates through different titles
+- Has the blinking cursor effect
+- Cycles through: AI/ML Enthusiast → Full-Stack Developer → Hackathon Winner → Problem Solver
 
-#### Typography Animations
-- **Typing Effect**: Auto-typing subtitle with multiple rotating phrases
-- **Blinking Cursor**: Realistic typing cursor animation
-- **Gradient Shift**: Animated gradient on name text
-- **Fade-in Animations**: Staggered entrance animations
+### Scroll Stuff
 
-### Scroll-Based Animations
+**Things Fade In As You Scroll**
+- Cards and sections animate when they come into view
+- Uses Intersection Observer for good performance
+- Only animates once (doesn't repeat every time you scroll)
 
-#### Intersection Observer
-- **Scroll Triggers**: Elements animate into view as you scroll
-- **Performance**: Uses native IntersectionObserver API
-- **Threshold Control**: Precise control over when animations trigger
-- **One-time Animations**: Elements animate once and stay visible
+**Counting Numbers**
+- The "10+ Projects" stat counts up from 0
+- Triggers when you scroll to it
+- Looks pretty satisfying
 
-#### Parallax Effects
-- **Depth Simulation**: Elements move at different speeds while scrolling
-- **Customizable Speed**: Data attributes control parallax intensity
-- **Smooth Movement**: CSS transforms for GPU acceleration
+### The Sections
 
-#### Counter Animations
-- **Odometer Effect**: Numbers count up from 0 to target value
-- **Smooth Easing**: 60-step animation over 2 seconds
-- **Smart Formatting**: Preserves "+" suffix for values like "10+"
-- **Trigger on Scroll**: Activates when counters enter viewport
+**Hero** - Big intro with my name and what I do
 
-### Interactive Elements
+**About** - Quick bio + some stats (projects, awards, years coding)
 
-#### Responsive Navigation
-- **Fixed Header**: Stays at top while scrolling
-- **Blur Background**: Glassmorphism effect with backdrop-filter
-- **Active Link Highlighting**: Smooth underline animation on hover
-- **Mobile Menu**: Hamburger menu with smooth transitions
-- **Auto-close**: Menu closes when clicking links
+**Experience** - Timeline of my jobs
+- Web Designer at Sweeja Jewelry (current)
+- Accenture Internship (summer 2022)
 
-#### Smooth Scrolling
-- **Native Scroll Behavior**: CSS scroll-behavior: smooth
-- **Anchor Links**: All navigation links use smooth scrolling
-- **Offset Compensation**: Accounts for fixed header height
+**Projects** - My best work:
+- TheoHealth (AI health diary - won 1st and 3rd place)
+- GothamAI (Batman-themed AI chatbot with voice)
+- BLACKOUT (Power grid simulator - won 2nd)
+- AutoPatt (Semiconductor tracker - won 1st)
+- And a few more
 
-### Modern Design System
+**Skills** - All the languages and tools I know
 
-#### Color Palette
-- **Primary**: Electric Blue (#3b82f6)
-- **Secondary**: Purple (#8b5cf6)
-- **Accent**: Orange (#f59e0b)
-- **Dark Theme**: Slate color scheme
-- **CSS Variables**: Easy theme customization
+**Achievements** - Hackathon wins and awards
 
-#### Typography
-- **Font**: Inter (Google Fonts)
-- **Weights**: 300-800 for variety
-- **Hierarchy**: Clear heading and body text distinction
-- **Line Height**: Optimized for readability
+**Contact** - Email, phone, LinkedIn
 
-#### Layout System
-- **CSS Grid**: Modern grid layouts for sections
-- **Flexbox**: Flexible component arrangements
-- **Responsive**: Mobile-first responsive design
-- **Container**: Max-width 1200px with centered content
+## Tech Stack
 
-### Sections
+- HTML/CSS/JavaScript (no frameworks!)
+- Google Fonts (Inter)
+- Canvas API for particles
+- That's it - kept it simple
 
-#### Hero Section
-- **Dual Layout**: Grid with text and floating visual element
-- **Animated Entrance**: Fade-in and slide-up on page load
-- **Social Links**: Direct links to LinkedIn, email, and phone
-- **CTA Buttons**: Primary and secondary action buttons
-- **Scroll Indicator**: Animated arrows guiding users down
+## Running It Locally
 
-#### About Section
-- **Statistics Cards**: Animated counter cards
-- **Hover Effects**: 3D tilt on stat cards
-- **Professional Bio**: Multi-paragraph introduction
-- **Highlight Keywords**: Bold emphasis on key skills
+Just open `index.html` in your browser. Or if you want a local server:
 
-#### Experience Timeline
-- **Vertical Timeline**: Clean chronological layout
-- **Dot Indicators**: Gradient-filled timeline dots
-- **Hover Animation**: Cards slide right on hover
-- **Date Labels**: Color-coded date stamps
-- **Bullet Points**: Organized achievement lists
-
-#### Projects Showcase
-- **Grid Layout**: Responsive card grid
-- **Badge System**: Award badges (1st, 2nd, 3rd place)
-- **Tech Tags**: Technology stack indicators
-- **Icon Headers**: Emoji icons for visual interest
-- **Highlights Section**: Key achievements and metrics
-- **Glow on Hover**: Multi-layered shadow effects
-
-#### Skills Section
-- **Category Groups**: Organized by skill type
-- **Interactive Tags**: Hover to highlight skills
-- **Color Coding**: Category-specific colors
-- **Comprehensive List**: Languages, frameworks, tools, and expertise
-
-#### Achievements Grid
-- **Award Cards**: Trophy, medal, and ribbon emojis
-- **Expanding Glow**: Radial gradient expands on hover
-- **Competition Names**: Clear achievement descriptions
-- **Project Links**: Connected to related projects
-
-#### Contact Section
-- **Multiple Methods**: Email, phone, and LinkedIn
-- **Icon Cards**: Large, clickable contact cards
-- **Hover Effects**: Lift and glow animations
-- **Direct Links**: Clickable mailto:, tel:, and https:// links
-
-### Technical Implementation
-
-#### Performance Optimizations
-- **Hardware Acceleration**: CSS transforms use GPU
-- **RequestAnimationFrame**: Smooth 60fps animations
-- **Debounced Events**: Optimized scroll and resize handlers
-- **Lazy Loading**: Images load as needed
-- **Reduced Motion Support**: Respects prefers-reduced-motion
-
-#### Browser Compatibility
-- **Modern Browsers**: Chrome, Firefox, Safari, Edge
-- **Fallbacks**: Graceful degradation for older browsers
-- **Vendor Prefixes**: -webkit for maximum compatibility
-- **Feature Detection**: Checks for API support before using
-
-#### Responsive Design
-- **Breakpoints**:
-  - Desktop: 1200px+
-  - Tablet: 768px - 1199px
-  - Mobile: < 768px
-- **Mobile Menu**: Hamburger navigation
-- **Flexible Grids**: Auto-fit and auto-fill
-- **Touch-Friendly**: Large tap targets on mobile
-
-#### Code Quality
-- **Vanilla JavaScript**: No framework dependencies
-- **ES6+ Syntax**: Modern JavaScript features
-- **Class-Based**: OOP architecture for effects
-- **Comments**: Detailed code documentation
-- **Semantic HTML**: Proper HTML5 elements
-
-## File Structure
-
-```
-personalWebsite/
-│
-├── index.html              # Main HTML structure
-├── styles.css              # All CSS styles and animations
-├── script.js               # JavaScript for interactivity
-├── README.md               # This file
-├── CHANGELOG.md            # Version history
-│
-├── Vikranth_Vegesina_Resume.pdf
-├── GothamAI_README.md      # Featured project documentation
-│
-└── assets/                 # (Optional) Images and media
-```
-
-## Setup & Usage
-
-### Local Development
-
-1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/personalWebsite.git
-cd personalWebsite
-```
-
-2. Open `index.html` in your browser:
-```bash
-# On macOS
-open index.html
-
-# On Windows
-start index.html
-
-# On Linux
-xdg-open index.html
-```
-
-3. Or use a local server (recommended):
-```bash
-# Python 3
+# Python
 python -m http.server 8000
 
-# Node.js (http-server)
-npx http-server
-
-# VS Code Live Server extension
-# Right-click index.html → "Open with Live Server"
+# Or use VS Code Live Server extension
 ```
 
-### Deployment
+## Deploying
 
-#### GitHub Pages
-1. Push code to GitHub repository
-2. Go to Settings → Pages
-3. Select main branch
-4. Site will be live at `https://yourusername.github.io/personalWebsite`
+**GitHub Pages:**
+1. Push to GitHub
+2. Settings → Pages → Select main branch
+3. Done
 
-#### Netlify
-1. Connect GitHub repository
-2. Build command: (none needed)
-3. Publish directory: `/`
-4. Deploy
-
-#### Vercel
+**Vercel:**
 ```bash
 npm i -g vercel
 vercel
 ```
 
+**Netlify:**
+Just drag the folder onto netlify.com
+
 ## Customization
 
-### Update Personal Information
+Want to use this for your own site?
 
-1. **HTML (index.html)**:
-   - Update name, title, description in hero section
-   - Modify experience entries in timeline
-   - Add/remove projects in projects section
-   - Update contact links
+**Update Your Info:**
+- Edit `index.html` - change the name, bio, projects, etc.
+- Edit `styles.css` - the colors are in the `:root` section at the top
+- Edit `script.js` - change the typing phrases around line 310
 
-2. **CSS (styles.css)**:
-   - Change CSS variables in `:root` for colors
-   - Modify spacing, fonts, or animations
-   - Adjust breakpoints for responsive design
-
-3. **JavaScript (script.js)**:
-   - Modify typing effect phrases
-   - Adjust particle count and behavior
-   - Customize animation speeds
-
-### Add New Sections
-
-```html
-<section id="new-section" class="new-section">
-    <div class="container">
-        <h2 class="section-title">New Section</h2>
-        <div class="content">
-            <!-- Your content here -->
-        </div>
-    </div>
-</section>
-```
-
-```css
-.new-section {
-    padding: var(--spacing-xl) 0;
-    background: var(--bg-secondary);
-}
-```
-
-### Modify Colors
-
-Edit CSS variables in `styles.css`:
-
+**Change Colors:**
 ```css
 :root {
-    --primary-color: #your-color;
-    --secondary-color: #your-color;
-    --accent-color: #your-color;
+    --primary-color: #3b82f6;  /* Main blue */
+    --secondary-color: #8b5cf6; /* Purple */
+    --accent-color: #f59e0b;    /* Orange */
 }
 ```
-
-## Browser Support
-
-- ✅ Chrome 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
-- ⚠️ IE 11 (limited support)
 
 ## Performance
 
-- **Lighthouse Score**: 95+ on all metrics
-- **First Contentful Paint**: < 1.5s
-- **Time to Interactive**: < 3.5s
-- **Performance**: Optimized animations use GPU acceleration
+- Loads fast (no heavy libraries)
+- 60fps animations
+- Works on phones
+- Tested on Chrome, Firefox, Safari, Edge
 
-## Dependencies
+## File Structure
 
-- **Fonts**: Google Fonts (Inter)
-- **Icons**: Inline SVG
-- **JavaScript**: Vanilla ES6+ (no frameworks)
-- **CSS**: Modern CSS3 (no preprocessors)
+```
+├── index.html       # Everything's here
+├── styles.css       # All the styles
+├── script.js        # Animations and interactions
+├── vercel.json      # Vercel config
+└── README.md        # You are here
+```
 
 ## Credits
 
-- **Design & Development**: Vikranth Vegesina
-- **Fonts**: [Inter by Rasmus Andersson](https://rsms.me/inter/)
-- **Inspiration**: Modern web design trends, ThreeJS effects, Glassmorphism
+- Built by me (Vikranth Vegesina)
+- Font: Inter by Rasmus Andersson
+- Inspired by modern portfolios and Three.js effects
 
 ## License
 
-Copyright © 2025 Vikranth Vegesina. All rights reserved.
+Feel free to use this as a template, just don't copy my personal info :)
 
 ## Contact
 
-- **Email**: vegesinav@gmail.com
-- **Phone**: (614) 436-3462
-- **LinkedIn**: [linkedin.com/in/vik-vegesina](https://www.linkedin.com/in/vik-vegesina)
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for version history and updates.
+- Email: vegesinav@gmail.com
+- LinkedIn: [linkedin.com/in/vik-vegesina](https://www.linkedin.com/in/vik-vegesina)
+- Phone: (614) 436-3462
 
 ---
 
-**Built with ❤️ and code by Vikranth Vegesina**
+Built in December 2024. No AI was harmed in the making of this website.

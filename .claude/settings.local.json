@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(git add:*)",
-      "Bash(git remote set-url:*)"
+      "Bash(git remote set-url:*)",
+      "WebFetch(domain:www.bryanleezh.dev)",
+      "WebFetch(domain:bruno-simon.com)"
     ],
     "deny": [],
     "ask": []
