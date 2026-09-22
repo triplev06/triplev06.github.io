@@ -1,0 +1,27 @@
+const assert=require('node:assert/strict'),E=require('./nes-engine.js'),W=require('./nes-world.js'),A=require('./audio.js');
+for(const dir of ['n','s','e','w'])for(const type of ['rock','enemyBoomerang','fire'])for(const front of [true,false]){
+ const g=new E(W);g.loadRoom('cave',120,120);g.enemies=[];g.grid=Array.from({length:11},()=>Array(16).fill('floor'));g.player.invincible=0;g.player.dir=dir;const [x,y]=g.vector(dir),side=front?1:-1;g.projectiles=[{x:120+x*7*side,y:120+y*7*side,vx:-x*30*side,vy:-y*30*side,life:1,type}];g.update(.01);assert.equal(g.state.hp,front&&type!=='fire'?6:5,dir+type+front);
+}
+console.log('PASS shield blocks front rocks and boomerangs in all four directions; rear hits and fire hurt');
+const g=new E(W);g.grid=Array.from({length:11},()=>Array(16).fill('floor'));for(let y=1;y<8;y++)g.grid[y][7]='wall';g.player.x=168;g.player.y=56;const enemy={x:88,y:56};let lower=false;for(let i=0;i<1500;i++){g.navigate(enemy,.02,40);assert(!g.solid(enemy.x,enemy.y));if(enemy.y>=135.9)lower=true;}assert(lower);assert(Math.hypot(enemy.x-168,enemy.y-56)<2);console.log('PASS enemy routes around long barrier without crossing it');
+const media={};const a=new A(n=>media[n]={paused:true,currentTime:0,addEventListener(ev,fn){this.end=fn},play(){this.paused=false;return Promise.resolve()},pause(){this.paused=true}});a.sync('overworld','playing');a.enable(true);assert(!media.overworld.paused);a.sync('dungeon','playing');assert(media.overworld.paused);assert(!media.dungeon.paused);a.cue('item');assert(!media.item.paused);a.sync('dungeon','paused');assert(media.item.paused&&media.dungeon.paused);a.sync('dungeon','playing');a.cue('triforce');a.cue('item');assert.equal(a.currentCue,'triforce');assert(media.dungeon.paused);a.background(true);assert(media.triforce.paused);a.background(false);assert(!media.triforce.paused);a.enable(false);assert(Object.values(media).every(m=>m.paused));a.resetCue();a.enable(true);assert(!media.dungeon.paused);a.cue('death');assert(!media.death.paused);console.log('PASS soundtrack transitions, pause, mute, death and victory priority');
+const vm=require('node:vm'),fs=require('node:fs');const calls=[];const ctx={save(){},restore(){},translate(){},scale(x,y){calls.push(['scale',x,y])},drawImage(...a){calls.push(['draw',...a.slice(1,5)])}};
+const sandbox={Image:class{set src(v){this.width=500;this.height=500;this.onload()}},document:{createElement(){return {getContext(){return {drawImage(){},getImageData(){return {data:[]}},putImageData(){}}}}}}};
+vm.createContext(sandbox);vm.runInContext(fs.readFileSync(__dirname+'/nes-art.js','utf8')+';this.art=AdventureArt;',sandbox);
+for(const type of ['octorok','blueOctorok'])for(const frame of [0,1])for(const dir of ['n','s','e','w']){calls.length=0;sandbox.art.sprite(ctx,type,0,0,frame,dir);const scale=calls.find(c=>c[0]==='scale');assert.equal(scale?.[2]===-1,dir==='n');assert.equal(scale?.[1]===-1,dir==='e');}
+for(const [type,base] of [['moblin',82],['goriya',222]])for(const [i,dir] of ['s','n','e','w'].entries()){calls.length=0;sandbox.art.sprite(ctx,type,0,0,1,dir);assert.equal(calls.find(c=>c[0]==='draw')[1],base+(i<2?i*17:51));assert.equal(calls.some(c=>c[0]==='scale'&&c[1]===-1),dir==='w');}
+console.log('PASS both Octorok frames face all four directions; Moblins and Goriyas use directional frames');
+for(const [first,second,expected] of [['up','right','n'],['right','up','e'],['down','left','s'],['left','down','w']]){
+ const g=new E(W);g.loadRoom('cave',120,120);g.enemies=[];g.grid=Array.from({length:11},()=>Array(16).fill('floor'));
+ g.update(.02,{[first]:true});const before={...g.player};g.update(.02,{[first]:true,[second]:true});assert.equal(g.player.dir,expected);assert(g.player.x!==before.x&&g.player.y!==before.y);assert(Math.abs(Math.hypot(g.player.x-before.x,g.player.y-before.y)-78*.02)<1e-8);
+ g.update(.02,{[second]:true});assert.equal(g.player.dir,{up:'n',down:'s',left:'w',right:'e'}[second]);
+}
+for(const side of ['left','right']){const g=new E(W);g.loadRoom('cave',120,120);g.update(.02,{up:true,[side]:true});assert.equal(g.player.dir,side==='left'?'w':'e');}
+console.log('PASS diagonal movement retains first input, switches on release, prioritizes horizontal ties, and normalizes speed');
+for(const type of ['beam','rock','fire','boomerang','enemyBoomerang']){
+ const g=new E(W);g.loadRoom('cave',72,120);g.enemies=[];g.grid=Array.from({length:11},()=>Array(16).fill('floor'));for(let y=0;y<11;y++)g.grid[y][7]='wall';
+ g.projectiles=[{x:108,y:88,vx:125,vy:0,life:3,age:0,type,friendly:true,hit:new Set()}];for(let i=0;i<12;i++)g.update(.02);assert(g.projectiles[0]?.x>128,type+' must pass through wall');
+ g.projectiles=[{x:253,y:88,vx:125,vy:0,life:3,age:0,type,friendly:true,hit:new Set()}];g.update(.035);assert.equal(g.projectiles.length,0,type+' must stop at screen edge');
+}
+{const g=new E(W);g.loadRoom('cave',108,120);g.state.sword=true;g.player.dir='e';g.grid=Array.from({length:11},()=>Array(16).fill('floor'));g.grid[7][7]='wall';g.attack();assert(g.projectiles.some(q=>q.type==='beam'));assert(g.solid(120,120),'Terrain still blocks characters');}
+console.log('PASS all projectiles pass through terrain, expire at screen edges, and launch beside obstacles');
