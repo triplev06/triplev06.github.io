@@ -1,0 +1,15 @@
+const assert=require('node:assert/strict'),E=require('./nes-engine.js'),W=require('./nes-world.js');
+const e=new E(W);e.enemies=[];
+assert(!e.inventoryItems().includes('bombs'),'Bombs are hidden before acquisition');
+const drop={type:'bombs'};e.drops=[drop];e.takeDrop(drop);
+assert.equal(e.state.bombs,4);assert.equal(e.state.bombsUnlocked,true);assert(e.inventoryItems().includes('bombs'));
+e.state.bombs=1;e.state.equippedB='bombs';assert(e.placeBomb());assert.equal(e.state.bombs,0);assert.equal(e.state.equippedB,'bombs');assert(e.inventoryItems().includes('bombs'));
+const count=e.bombs.length;assert(!e.placeBomb());assert.equal(e.bombs.length,count);assert.equal(e.state.bombs,0);
+e.openInventory();assert(e.equip('bombs'));e.closeInventory();
+const saved=JSON.parse(JSON.stringify(e.state)),restored=new E(W);assert(restored.restore(saved));assert.equal(restored.state.bombs,0);assert.equal(restored.state.equippedB,'bombs');assert(restored.inventoryItems().includes('bombs'));
+restored.state.boomerang=true;restored.openInventory();restored.equip('boomerang');restored.closeInventory();
+const again=new E(W);assert(again.restore(JSON.parse(JSON.stringify(restored.state))));assert(again.inventoryItems().includes('bombs'));again.openInventory();assert(again.equip('bombs'));again.closeInventory();
+const more={type:'bombs'};again.drops=[more];again.takeDrop(more);assert.equal(again.state.bombs,4);assert(again.placeBomb());
+const legacy={...saved};delete legacy.bombsUnlocked;const migrated=new E(W);assert(migrated.restore(legacy));assert(migrated.inventoryItems().includes('bombs'));assert.equal(migrated.state.equippedB,'bombs');
+again.fresh();assert(!again.inventoryItems().includes('bombs'));
+console.log('PASS bombs stay unlocked and selectable at zero ammo, retain selection, reject empty placement, survive reload and switching items, refill, migrate old saves, and reset on a new game');

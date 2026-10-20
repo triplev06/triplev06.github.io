@@ -13,11 +13,11 @@ for(const [type,base] of [['moblin',82],['goriya',222]])for(const [i,dir] of ['s
 console.log('PASS both Octorok frames face all four directions; Moblins and Goriyas use directional frames');
 for(const [first,second,expected] of [['up','right','n'],['right','up','e'],['down','left','s'],['left','down','w']]){
  const g=new E(W);g.loadRoom('cave',120,120);g.enemies=[];g.grid=Array.from({length:11},()=>Array(16).fill('floor'));
- g.update(.02,{[first]:true});const before={...g.player};g.update(.02,{[first]:true,[second]:true});assert.equal(g.player.dir,expected);assert(g.player.x!==before.x&&g.player.y!==before.y);assert(Math.abs(Math.hypot(g.player.x-before.x,g.player.y-before.y)-78*.02)<1e-8);
+ g.update(.02,{[first]:true});const before={...g.player};g.update(.02,{[first]:true,[second]:true});assert.equal(g.player.dir,expected);assert.equal(g.player.x!==before.x,['e','w'].includes(expected));assert.equal(g.player.y!==before.y,['n','s'].includes(expected));assert(Math.abs(Math.hypot(g.player.x-before.x,g.player.y-before.y)-78*.02)<1e-8);
  g.update(.02,{[second]:true});assert.equal(g.player.dir,{up:'n',down:'s',left:'w',right:'e'}[second]);
 }
-for(const side of ['left','right']){const g=new E(W);g.loadRoom('cave',120,120);g.update(.02,{up:true,[side]:true});assert.equal(g.player.dir,side==='left'?'w':'e');}
-console.log('PASS diagonal movement retains first input, switches on release, prioritizes horizontal ties, and normalizes speed');
+for(const side of ['left','right'])for(const vertical of ['up','down']){const g=new E(W);g.loadRoom('cave',120,120);g.update(.02,{[vertical]:true,[side]:true});assert.equal(g.player.dir,side==='left'?'w':'e');assert.equal(g.player.y,120);assert(Math.abs(Math.abs(g.player.x-120)-78*.02)<1e-8);}
+console.log('PASS four-direction movement retains first input, switches on release, prioritizes horizontal ties, and keeps constant speed');
 for(const type of ['beam','rock','fire','boomerang','enemyBoomerang']){
  const g=new E(W);g.loadRoom('cave',72,120);g.enemies=[];g.grid=Array.from({length:11},()=>Array(16).fill('floor'));for(let y=0;y<11;y++)g.grid[y][7]='wall';
  g.projectiles=[{x:108,y:88,vx:125,vy:0,life:3,age:0,type,friendly:true,hit:new Set()}];for(let i=0;i<12;i++)g.update(.02);assert(g.projectiles[0]?.x>128,type+' must pass through wall');
